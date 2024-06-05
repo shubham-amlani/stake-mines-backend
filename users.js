@@ -191,3 +191,7 @@ exports.handleWithdraw = async(req, res)=>{
         res.json({balance: newBalance});
     }
 }
+
+exports.healthCheck = async(req, res)=>{
+    res.status(200).send('OK');
+}

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate, getWallet, updateWallet, logout, startgame, getUsername, openTile, handleCashout, handleDeposit, handleWithdraw } = require('./users');
+const { authenticate, getWallet, updateWallet, logout, startgame, getUsername, openTile, handleCashout, handleDeposit, handleWithdraw, healthCheck } = require('./users');
 const jwt = require('jsonwebtoken')
 
 router.post('/authenticate', authenticate);
@@ -13,6 +13,7 @@ router.post('/opentile', authenticateToken, openTile);
 router.post('/cashout', authenticateToken, handleCashout);
 router.post('/deposit', authenticateToken, handleDeposit)
 router.post('/withdraw', authenticateToken, handleWithdraw);
+router.get('/health', healthCheck);
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
