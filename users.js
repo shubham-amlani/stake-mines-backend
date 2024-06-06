@@ -142,13 +142,13 @@ exports.getUsername = async (req, res) =>{
 exports.openTile = async (req, res) =>{
     const {tileCoords, username} = req.body;
     const game = await Game.findOne({username: username});
+    const gameArray = game.gameArray;
     const mine = game.gameArray[tileCoords];
     const newArray = game.openedArray;
     newArray[tileCoords] = 1;
     await Game.findOneAndUpdate({username: username}, {$set: {openedArray: newArray}});
 
     if(mine){
-        const gameArray = game.gameArray;
         res.json({gem: false, mine: true, profit: 0, gameArray: gameArray});
         await Game.findOneAndDelete({username: username});
     } else{
